@@ -1,0 +1,45 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+/* @hack use a dummy zone implementation because Angular TestBed
+ * manually instantiates NgZone.
+ * This could be quickly fixed. */
+
+class NoopZone {
+  static root = new NoopZone();
+  static current = NoopZone.root;
+  static currentTask = null;
+  /* This is used by TestBed's teardown. */
+  static fakeAsyncTest = {
+    resetFakeAsyncZone() {},
+  };
+
+  static asyncTest = {
+    resetAsyncZone() {},
+  };
+
+  static assertZonePatched() {
+    return true;
+  }
+
+  static __load_patch() {}
+
+  static __symbol__(name: string) {
+    return name;
+  }
+
+  get() {
+    return this;
+  }
+
+  fork() {
+    return this;
+  }
+
+  run(callback: Function, applyThis?: any, applyArgs?: any[]) {
+    return callback.apply(applyThis, applyArgs);
+  }
+}
+
+(globalThis as any).Zone = NoopZone;

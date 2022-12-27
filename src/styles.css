@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/ng-zorro-antd/style/index.min.css"; /* Import base styles */
+@import "../node_modules/ng-zorro-antd/button/style/index.min.css";
+@import "../node_modules/ng-zorro-antd/card/style/index.min.css";
+@import "../node_modules/ng-zorro-antd/form/style/index.min.css";
+@import "../node_modules/ng-zorro-antd/avatar/style/index.min.css";
+@import "../node_modules/ng-zorro-antd/modal/style/index.min.css";
+
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  min-width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
