@@ -14,10 +14,10 @@ export interface People {
     lng: number;
   };
   phone: string;
-  address: {
+  address?: {
     street: string;
     postalCode: number;
-    city: string;
+    city: string | null | undefined;
   };
   links: {
     twitter: string;
@@ -30,8 +30,8 @@ export interface People {
   managerId: string;
 }
 
-export interface PeopleForm {
-  id?: string;
+export interface PersonForm {
+  id?: string | null;
   photo: string;
   firstname: string | null;
   lastname: string | null;

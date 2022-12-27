@@ -1,13 +1,13 @@
 import { PeopleService } from '@ams/core/services/people.service';
 import { CardComponent } from '@ams/shared/components/card/card.component';
-import { type People } from '@ams/shared/models/people.model';
+import { type People, type PersonForm } from '@ams/shared/models/people.model';
 import { AsyncPipe, NgFor } from '@angular/common';
 import { Component, inject, type OnInit } from '@angular/core';
 import { UserAddOutline } from '@ant-design/icons-angular/icons';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule, NzIconService } from 'ng-zorro-antd/icon';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { type Observable } from 'rxjs';
+import { filter, switchMap, type Observable } from 'rxjs';
 import { DialogPeopleCreationComponent } from './dialog-people-creation/dialog-people-creation.component';
 
 @Component({
@@ -68,9 +68,15 @@ export class ListComponent implements OnInit {
         nzFooter: null,
         nzCentered: true,
         nzClosable: false,
+        nzAutofocus: null,
+        nzWidth: '40%',
         nzContent: DialogPeopleCreationComponent,
         nzTitle: 'Form to add a new person',
       })
-      .afterClose.subscribe();
+      .afterClose.pipe(
+        filter((person: PersonForm | undefined) => Boolean(person)),
+        switchMap(person => this.#peopleService.createPerson(person as PersonForm))
+      )
+      .subscribe(() => (this.peoples$ = this.#peopleService.retrievePeoples()));
   }
 }

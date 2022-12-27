@@ -1,5 +1,5 @@
 import { ENVIRONMENT } from '@ams/environments/environment';
-import { type People } from '@ams/shared/models/people.model';
+import { type People, type PersonForm } from '@ams/shared/models/people.model';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { type Observable } from 'rxjs';
@@ -15,5 +15,9 @@ export class PeopleDataService {
 
   getRandomPeople(): Observable<People> {
     return this.#httpClient.get<People>(`${this.#backendUrl}/api/peoples/random`);
+  }
+
+  postPeople(person: PersonForm): Observable<void> {
+    return this.#httpClient.post<void>(`${this.#backendUrl}/api/peoples`, person);
   }
 }

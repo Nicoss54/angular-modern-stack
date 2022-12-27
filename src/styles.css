@@ -3,8 +3,10 @@
 @import "../node_modules/ng-zorro-antd/button/style/index.min.css";
 @import "../node_modules/ng-zorro-antd/card/style/index.min.css";
 @import "../node_modules/ng-zorro-antd/form/style/index.min.css";
+@import "../node_modules/ng-zorro-antd/input/style/index.min.css";
 @import "../node_modules/ng-zorro-antd/avatar/style/index.min.css";
 @import "../node_modules/ng-zorro-antd/modal/style/index.min.css";
+@import "../node_modules/ng-zorro-antd/image/style/index.min.css";
 
 
 html,

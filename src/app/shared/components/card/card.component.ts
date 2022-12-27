@@ -28,7 +28,7 @@ const iconsToDisplay = [PhoneOutline, EnvironmentOutline, UserOutline, EditOutli
         </div>
         <div class="line-information">
           <span nz-icon nzType="environment" nzTheme="outline"></span>
-          {{ people.address.city }}
+          {{ people.address?.city | na }}
         </div>
         <div class="line-information">
           <span nz-icon nzType="user" nzTheme="outline"></span>
@@ -81,7 +81,7 @@ export class CardComponent implements OnInit {
   readonly #nzIconService = inject(NzIconService);
 
   ngOnInit(): void {
-    iconsToDisplay.forEach((icon) => this.#nzIconService.addIcon(icon));
+    iconsToDisplay.forEach(icon => this.#nzIconService.addIcon(icon));
   }
 
   editPerson(id: string): void {
