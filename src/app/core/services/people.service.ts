@@ -15,7 +15,19 @@ export class PeopleService {
     return this.#peopleDataService.getPeoples();
   }
 
+  retrievePeople(id: string): Observable<People> {
+    return this.#peopleDataService.getPeopleById(id);
+  }
+
   createPerson(person: PersonForm): Observable<void> {
     return this.#peopleDataService.postPeople(person);
+  }
+
+  updatePerson(person: PersonForm): Observable<void> {
+    return this.#peopleDataService.putPeople(person);
+  }
+
+  removePerson(id: string): Observable<void> {
+    return this.#peopleDataService.deletePeople(id);
   }
 }

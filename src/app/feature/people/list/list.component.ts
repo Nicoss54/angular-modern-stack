@@ -3,6 +3,7 @@ import { CardComponent } from '@ams/shared/components/card/card.component';
 import { type People, type PersonForm } from '@ams/shared/models/people.model';
 import { AsyncPipe, NgFor } from '@angular/common';
 import { Component, inject, type OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserAddOutline } from '@ant-design/icons-angular/icons';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule, NzIconService } from 'ng-zorro-antd/icon';
@@ -13,7 +14,12 @@ import { DialogPeopleCreationComponent } from './dialog-people-creation/dialog-p
 @Component({
   standalone: true,
   imports: [NgFor, AsyncPipe, CardComponent, NzIconModule, NzButtonModule],
-  template: `<ams-card *ngFor="let people of peoples$ | async" [people]="people"></ams-card>
+  template: `<ams-card
+      *ngFor="let people of peoples$ | async"
+      [people]="people"
+      (editPerson)="goToEdition(people.id)"
+      (deletePerson)="deletePerson($event)"
+    ></ams-card>
     <button
       type="button"
       name="add new people button"
@@ -55,6 +61,7 @@ export class ListComponent implements OnInit {
   readonly #peopleService = inject(PeopleService);
   readonly #nzIconService = inject(NzIconService);
   readonly #nzModalService = inject(NzModalService);
+  readonly #route = inject(Router);
 
   peoples$: Observable<People[]> = this.#peopleService.retrievePeoples();
 
@@ -78,5 +85,13 @@ export class ListComponent implements OnInit {
         switchMap(person => this.#peopleService.createPerson(person as PersonForm))
       )
       .subscribe(() => (this.peoples$ = this.#peopleService.retrievePeoples()));
+  }
+
+  async goToEdition(idPeople: string) {
+    await this.#route.navigate(['/peoples/edit', idPeople]);
+  }
+
+  deletePerson(personId: string) {
+    this.#peopleService.removePerson(personId).subscribe(() => (this.peoples$ = this.#peopleService.retrievePeoples()));
   }
 }

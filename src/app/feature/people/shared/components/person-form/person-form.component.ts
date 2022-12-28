@@ -88,7 +88,6 @@ import { PeopleForm } from './person.form';
     `
       :host {
         width: 100%;
-        height: 100%;
         display: flex;
       }
 

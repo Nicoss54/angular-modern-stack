@@ -17,7 +17,19 @@ export class PeopleDataService {
     return this.#httpClient.get<People>(`${this.#backendUrl}/api/peoples/random`);
   }
 
+  getPeopleById(id: string): Observable<People> {
+    return this.#httpClient.get<People>(`${this.#backendUrl}/api/peoples/${id}`);
+  }
+
   postPeople(person: PersonForm): Observable<void> {
     return this.#httpClient.post<void>(`${this.#backendUrl}/api/peoples`, person);
+  }
+
+  putPeople(person: PersonForm): Observable<void> {
+    return this.#httpClient.put<void>(`${this.#backendUrl}/api/peoples/${person.id}`, person);
+  }
+
+  deletePeople(id: string): Observable<void> {
+    return this.#httpClient.delete<void>(`${this.#backendUrl}/api/peoples/${id}`);
   }
 }
